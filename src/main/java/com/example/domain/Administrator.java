@@ -1,5 +1,5 @@
 package com.example.domain;
-
+//Administerテーブルのオブジェクトクラス
 public class Administrator {
     private Integer id;
     private String name;
