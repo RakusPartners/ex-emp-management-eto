@@ -1,5 +1,5 @@
 package com.example.domain;
-//Employeeテーブルのオブジェクトクラス
+
 public class Employee {
     private Integer id;
     private String name;
@@ -56,7 +56,7 @@ public class Employee {
         return hireDate;
     }
 
-    public void setHireDate(java.util.Date hireDate) {
+    public void setHireDate(String string) {
         this.hireDate = hireDate;
     }
 
