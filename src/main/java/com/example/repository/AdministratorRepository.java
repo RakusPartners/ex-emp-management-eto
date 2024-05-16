@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.example.domain.Administrator;
 
@@ -38,8 +40,11 @@ private NamedParameterJdbcTemplate template;
 
     //メールアドレスとパスワードから管理者情報を取得する(1件も存在しない場合は null を返す※)。
     public Administrator findByMailAddressAndPassword(String mailAddress, String password){
-        String findSql = "SELECT name, mail_address, password FROM administrators WHERE mail_address=:mail_address, password=:password";
-        List<Administrator> administratorList = template.query(findSql, ADMINISTRATOR_ROW_MAPPER); 
+        String findSql = "SELECT name, mail_address, password FROM administrators WHERE mail_address=:mailAddress AND password=:password";
+
+        SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password", password);
+
+        List<Administrator> administratorList = template.query(findSql, param, ADMINISTRATOR_ROW_MAPPER); 
         if(administratorList.size() == 0) {
             return null; 
         }

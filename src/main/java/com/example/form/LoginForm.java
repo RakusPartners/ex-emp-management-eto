@@ -5,6 +5,7 @@ public class LoginForm {
     private String mailAddress;
     private String password;
     
+    
     public String getMailAddress() {
         return mailAddress;
     }

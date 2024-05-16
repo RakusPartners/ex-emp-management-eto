@@ -12,12 +12,21 @@ import com.example.form.InsertAdministratorForm;
 import com.example.form.LoginForm;
 import com.example.service.AdministratorService;
 
+import jakarta.servlet.http.HttpSession;
+
+
 @Controller
 @RequestMapping("/")
 public class AdministratorController {
 
+
 @Autowired
 private AdministratorService administratorService;
+
+
+@Autowired
+private HttpSession session;
+
 
 @GetMapping("/toInsert")
 public String toInsert(InsertAdministratorForm form, Model model){
@@ -43,7 +52,21 @@ public String insert(InsertAdministratorForm form){
 @GetMapping("/")
 public String toLogin(LoginForm form, Model model){
     return "administrator/login";
-
 }
 
+@PostMapping("/login")
+public String login(LoginForm form, Model model){
+
+    Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
+
+    if (administrator == null) {
+        // ログイン失敗
+        model.addAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
+        return "administrator/login"; 
+    } else {
+        // ログイン成功
+        session.setAttribute("administratorName", administrator.getName());
+        return "redirect:/employee/showList"; 
+    }
+}
 }

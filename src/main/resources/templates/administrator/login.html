@@ -41,13 +41,15 @@
             <!-- ここから上を編集する必要はありません -->
 
             <!-- ここにモックのform要素を貼り付けます -->
+            
             <form th:action="@{/login}" method="post" action="../employee/list.html" th:object="${loginForm}">
               <fieldset>
                 <legend>ログイン</legend>
                 <div class="form-group">
-                  <!--<div class="alert alert-danger">
-                    <p>メールアドレスまたはパスワードが間違っています</p>
-                  </div> -->
+                  <div th:if="${errorMessage != null}" class="alert alert-danger">
+                    <!--<p>メールアドレスまたはパスワードが間違っています</p>-->
+                    <span  th:text="${errorMessage}"></span>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="mailAddress">メールアドレス:</label>
@@ -70,6 +72,7 @@
                     placeholder="Password"
                     th:field="*{password}"
                   />
+
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">
