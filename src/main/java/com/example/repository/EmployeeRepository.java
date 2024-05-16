@@ -24,22 +24,20 @@ private NamedParameterJdbcTemplate template;
         employee.setName(rs.getString("name"));
         employee.setImage(rs.getString("image"));
         employee.setGender(rs.getString("gender"));
-        employee.setHireDate(rs.getString("hireDate"));
-        employee.setMailAddress(rs.getString("mailAddress"));
-        employee.setZipCode(rs.getString("zipCode"));
+        employee.setHireDate(rs.getString("hire_date"));
+        employee.setMailAddress(rs.getString("mail_address"));
+        employee.setZipCode(rs.getString("zip_code"));
         employee.setAddress(rs.getString("address"));
         employee.setTelephone(rs.getString("telephone"));
         employee.setSalary(rs.getInt("salary"));
         employee.setCharacteristics(rs.getString("characteristics"));
-        employee.setDependentsCount(rs.getInt("dependentsCount"));
+        employee.setDependentsCount(rs.getInt("dependents_count"));
         return employee;
     };
 
     //全件検索メソッド
     public List<Employee> findAll(){
-        String sql ="SELECT id, name, image, gender, hire_date, mail_address, zip_code, address, telephone, salary, characteristics, dependents_count \n" + //
-                        "FROM employees \n" + //
-                        "ORDER BY hire_date DESC";
+        String sql ="SELECT id, name, image, gender, hire_date, mail_address, zip_code, address, telephone, salary, characteristics, dependents_count FROM employees ORDER BY hire_date DESC";
 
         List <Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
         return employeeList;
